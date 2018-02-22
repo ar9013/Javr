@@ -1,7 +1,12 @@
 package com.yue.ar.suite;
 
+import android.annotation.TargetApi;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import android.util.Log;
@@ -15,6 +20,9 @@ public class AndroidLauncher extends AndroidApplication {
 	private int origHeight;
 	private String TAG = "AndroidLauncher";
 	CameraControl cameraControl = null;  // 為了 取得 callback
+
+	GrayTask grayTask = null;
+	BitmapDrawable markerDrawable = null;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -35,6 +43,10 @@ public class AndroidLauncher extends AndroidApplication {
 
 
 		initialize(new ARSuite(cameraControl), config);
+
+		grayTask = new GrayTask();
+		markerDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.test);
+		convert2CvMat(markerDrawable);   // 轉換型態
 
 		if(graphics.getView() instanceof SurfaceView)
 		{
@@ -81,8 +93,6 @@ public class AndroidLauncher extends AndroidApplication {
 		origHeight = graphics.getHeight();
 		origWidth = graphics.getWidth();
 
-
-
 	}
 
 
@@ -98,6 +108,10 @@ public class AndroidLauncher extends AndroidApplication {
 		handler.post(r);
 	}
 
+	private void convert2CvMat(BitmapDrawable drawable){
+		Bitmap markerSrc = drawable.getBitmap();
 
+
+	}
 
 }

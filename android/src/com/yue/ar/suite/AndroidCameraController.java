@@ -26,14 +26,14 @@ public class AndroidCameraController implements CameraControl, Camera.PictureCal
     private byte[] previewData = null;
     private byte[] pictureData;
 
-    private FrameProcessor frameProcessor;
+   // private FrameProcessor frameProcessor;
+    GrayTask grayTask = null;
 
 
     public AndroidCameraController(AndroidLauncher activity) {
         this.activity = activity;
-        // 做出 FrameProcessor 物件
-        frameProcessor = new FrameProcessor();
 
+        grayTask = new GrayTask();
     }
 
 
@@ -244,10 +244,11 @@ public class AndroidCameraController implements CameraControl, Camera.PictureCal
     @Override
     public void onPreviewFrame(byte[] previewData, Camera camera) {
 
-            Log.d(TAG, "previewDataBuffer size :"+frameProcessor.previewDataBuffer.size());
-            frameProcessor.previewDataBuffer.addLast(previewData);
-            frameProcessor.run();
+            Log.d(TAG, "previewDataBuffer size :"+grayTask.previewDataBuffer.size());
 
+            grayTask.isMarker = false;
+            grayTask.previewDataBuffer.addLast(previewData);
+            grayTask.run();
     }
 
 }

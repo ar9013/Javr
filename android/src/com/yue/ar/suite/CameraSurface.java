@@ -39,12 +39,6 @@ public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback
         Camera.Parameters params = camera.getParameters();
         camera.setParameters(params);
 
-//        previewWidth = w;
-//        previewHeight =h;
-//
-//        Log.d(TAG,"previewHeight:"+previewHeight);
-//        Log.d(TAG,"previewWidth:"+previewWidth);
-
         try{
             camera.setPreviewCallback(cameraController);
             camera.setPreviewDisplay(holder);
