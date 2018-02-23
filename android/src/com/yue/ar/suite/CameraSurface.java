@@ -2,19 +2,15 @@ package com.yue.ar.suite;
 
 import android.content.Context;
 import android.hardware.Camera;
-import android.util.Log;
-import android.util.Size;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-
-import static android.content.ContentValues.TAG;
 
 public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback {
 
     private Camera camera = null;
 
-     static int previewWidth = 0;
-     static int previewHeight =0;
+      static int previewWidth = 0;
+      static int previewHeight =0;
 
     AndroidCameraController cameraController = null;
 
@@ -38,6 +34,10 @@ public class CameraSurface extends SurfaceView implements SurfaceHolder.Callback
 
         Camera.Parameters params = camera.getParameters();
         camera.setParameters(params);
+
+        Camera.Size size = params.getPictureSize();
+        previewHeight = size.height;
+        previewHeight = size.width;
 
         try{
             camera.setPreviewCallback(cameraController);

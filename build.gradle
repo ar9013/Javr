@@ -66,12 +66,8 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-x86_64"
 
-        // deal with javacv UnsatisfiedLinkError
-        compile(group: 'org.bytedeco', name: 'javacv-platform', version: '1.3'){
-            exclude group: 'org.bytedeco.javacpp-presets'
-        }
-        compile group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: '3.2.1-1.3'
-        compile group: 'org.bytedeco.javacpp-presets', name: 'ffmpeg', version: '3.2.1-1.3', classifier: 'android-arm'
+        // boofcv
+        compile group: 'org.boofcv', name: 'boofcv-android', version: '0.28'
 
     }
 }
