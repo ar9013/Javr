@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.List;
 
 public class AndroidCameraController implements CameraControl, Camera.PictureCallback,Camera.AutoFocusCallback,Camera.PreviewCallback
@@ -21,19 +22,22 @@ public class AndroidCameraController implements CameraControl, Camera.PictureCal
     private String TAG = "AndroidCameraController";
 
     private static final int ONE_SECOND_IN_MILI = 1000;
-    private final AndroidLauncher activity;
+    private  AndroidLauncher activity;
     private CameraSurface cameraSurface;
     private byte[] previewData = null;
     private byte[] pictureData;
 
-   // private FrameProcessor frameProcessor;
-    GrayTask grayTask = null;
 
+    // private FrameProcessor frameProcessor;
+
+    public static ArrayDeque<byte[]> previewDataBuffer = null;
 
     public AndroidCameraController(AndroidLauncher activity) {
         this.activity = activity;
 
-        grayTask = new GrayTask();
+        previewDataBuffer = new ArrayDeque<>();
+
+
     }
 
 
@@ -42,7 +46,6 @@ public class AndroidCameraController implements CameraControl, Camera.PictureCal
         if(cameraSurface == null){
             cameraSurface = new CameraSurface(activity,this);
         }
-
         activity.addContentView(cameraSurface,new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT));
     }
 
@@ -244,11 +247,17 @@ public class AndroidCameraController implements CameraControl, Camera.PictureCal
     @Override
     public void onPreviewFrame(byte[] previewData, Camera camera) {
 
-            Log.d(TAG, "previewDataBuffer size :"+grayTask.previewDataBuffer.size());
+            Log.d(TAG, "previewDataBuffer size :"+previewDataBuffer.size());
 
-            grayTask.isMarker = false;
-            grayTask.previewDataBuffer.addLast(previewData);
-            grayTask.run();
+
+            previewDataBuffer.addLast(previewData);
+
+
+            //grayTask.run();
+
+
+            //grayTask.previewDataBuffer.addLast(previewData);
+            //grayTask.run();
     }
 
 }

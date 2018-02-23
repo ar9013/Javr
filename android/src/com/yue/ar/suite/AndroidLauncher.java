@@ -21,7 +21,7 @@ public class AndroidLauncher extends AndroidApplication {
 	private String TAG = "AndroidLauncher";
 	CameraControl cameraControl = null;  // 為了 取得 callback
 
-	GrayTask grayTask = null;
+
 	BitmapDrawable markerDrawable = null;
 
 	@Override
@@ -41,12 +41,10 @@ public class AndroidLauncher extends AndroidApplication {
 
 		cameraControl = new AndroidCameraController(this);
 
-
 		initialize(new ARSuite(cameraControl), config);
 
-		grayTask = new GrayTask();
 		markerDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.test);
-		convert2CvMat(markerDrawable);   // 轉換型態
+
 
 		if(graphics.getView() instanceof SurfaceView)
 		{
@@ -108,10 +106,6 @@ public class AndroidLauncher extends AndroidApplication {
 		handler.post(r);
 	}
 
-	private void convert2CvMat(BitmapDrawable drawable){
-		Bitmap markerSrc = drawable.getBitmap();
 
-
-	}
 
 }
